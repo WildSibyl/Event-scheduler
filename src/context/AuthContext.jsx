@@ -10,20 +10,20 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     // Check if user is already logged in (from localStorage)
-    const storedUser = localStorage.getItem("apiKey");
+    const storedUser = localStorage.getItem("token");
     if (storedUser) {
       setUser(storedUser);
     }
   }, []);
 
-  const login = (apiKey) => {
-    localStorage.setItem("apiKey", apiKey);
-    setUser(apiKey);
+  const login = (token) => {
+    localStorage.setItem("token", token);
+    setUser(token);
     navigate("/home");
   };
 
   const logout = () => {
-    localStorage.removeItem("apiKey");
+    localStorage.removeItem("token");
     setUser(null);
     // navigate("/signin");
   };

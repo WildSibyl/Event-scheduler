@@ -25,8 +25,8 @@ export const Login = () => {
       const data = await response.json();
       if (!response.ok) throw new Error(data.message || "Login failed");
 
-      login(data.apiKey);
-      window.location.reload(); // Refresh the page
+      login(data.token);
+      // window.location.reload(); // Refresh the page
     } catch (err) {
       setError(err.message);
     }

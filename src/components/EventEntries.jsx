@@ -21,7 +21,7 @@ const EventEntries = ({ eventEntries, deleteCard }) => {
           {eventEntries.map((entry) => (
             <div
               key={entry.id}
-              className="bg-gradient-to-b from-blue-100 to-purple-200 p-4 rounded-lg shadow-md flex flex-col items-center justify-between h-50 w-50 cursor-pointer transition-all duration-300 ease-in-out hover:shadow-xl hover:from-purple-200 hover:to-blue-300"
+              className="relative bg-gradient-to-b from-blue-100 to-purple-200 p-4 rounded-lg shadow-md flex flex-col items-center justify-between h-50 w-50 cursor-pointer transition-all duration-300 ease-in-out hover:shadow-xl hover:from-purple-200 hover:to-blue-300"
               onClick={() => handleCardClick(entry)}
             >
               <div className="text-center space-y-2">
@@ -35,21 +35,21 @@ const EventEntries = ({ eventEntries, deleteCard }) => {
                   {entry.description}
                 </p>
               </div>
-              {/* <div>
+              <div className="">
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
                     deleteCard(entry.id);
                   }}
-                  className="bg-gray-100 rounded-lg p-2 mt-4 hover:bg-red-300 transition duration-300 ease-in-out cursor-pointer"
+                  className="bg-gray-100 rounded-lg p-2 mt-4 hover:bg-red-300 transition duration-300 ease-in-out cursor-pointer absolute top-0 right-2"
                 >
                   <img
                     src={deleteIcon}
                     alt="Delete button"
-                    className="w-[30px] self-start"
+                    className="w-[15px] self-start"
                   />
                 </button>
-              </div> */}
+              </div>
               <div>
                 <Link
                   to={`/${entry.id}`}

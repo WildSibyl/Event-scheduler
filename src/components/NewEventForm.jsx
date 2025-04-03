@@ -1,33 +1,31 @@
 import { useState } from "react";
 import { storeEvent } from "../modules/store";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 const NewEventForm = () => {
+  const navigate = useNavigate();
   const [warning, setWarning] = useState(""); //used to popup warning to avoid the same date
-  const [formData, setFormData] = useState({
+  const [eventFormData, setEventFormData] = useState({
     title: "",
     date: "",
-    imageUrl: "",
-    content: "",
+    location: "",
+    description: "",
   });
 
-  if (!add) {
-    return null;
-  }
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setEventFormData((prev) => ({ ...prev, [name]: value }));
   };
   const handleSubmit = (e) => {
     e.preventDefault(); // prevents emptying fields
 
-    let checkWarning = storeEvent(formData); // call store function
+    let checkWarning = storeEvent(eventFormData); // call store function
     if (checkWarning) {
       setWarning(checkWarning);
       return;
     }
     // reset fields to empty after successfully storing
-    setFormData({ title: "", date: "", imageUrl: "", content: "" });
+    setEventFormData({ title: "", date: "", location: "", description: "" });
     navigate("/"); // Redirect to home page after successful event creation
     checkWarning = "";
     setWarning(checkWarning);
@@ -63,7 +61,7 @@ const NewEventForm = () => {
               required
               name="title"
               onChange={handleChange}
-              value={formData.title}
+              value={eventFormData.title}
             />
           </div>
 
@@ -77,21 +75,22 @@ const NewEventForm = () => {
               required
               name="date"
               onChange={handleChange}
-              value={formData.date}
+              value={eventFormData.date}
             />
           </div>
 
           <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-2 sm:space-y-0">
             <label className="w-full sm:w-24 text-base sm:text-lg font-medium text-black">
-              Image URL
+              Location
             </label>
             <input
-              type="url"
+              type="text"
               className="flex-1 p-2 text-black border border-gray-300 rounded bg-gray-200 text-sm sm:text-base"
-              placeholder="Enter image URL "
-              name="imageUrl"
+              placeholder="Enter the event's location"
+              required
+              name="location"
               onChange={handleChange}
-              value={formData.imageUrl}
+              value={eventFormData.location}
             />
           </div>
 
@@ -101,21 +100,29 @@ const NewEventForm = () => {
             </label>
             <textarea
               className="flex-1 p-2 text-black border border-gray-300 rounded bg-gray-200 h-24 sm:h-32 resize-none text-sm sm:text-base"
-              placeholder="Enter content"
+              placeholder="Enter description"
               required
-              name="content"
+              name="description"
               onChange={handleChange}
-              value={formData.content}
+              value={eventFormData.description}
             />
           </div>
 
-          <div className="flex justify-center">
+          <div className="flex flex-col justify-center">
             <button
               type="submit"
-              className="bg-purple-600 shadow-md hover:bg-purple-300 hover:shadow-lg transition duration-300 text-white font-medium py-2 px-4 sm:px-6 rounded text-sm sm:text-base"
+              className="bg-purple-600 shadow-md hover:bg-purple-300 hover:shadow-lg transition duration-300 text-white font-medium py-2 mx-auto sm:px-6 rounded text-sm sm:text-base"
             >
               Submit
             </button>
+            <div>
+              <Link
+                to="/"
+                className="text-blue-400 hover:text-blue-100 mb-4 inline-block"
+              >
+                ← Back to home page
+              </Link>
+            </div>
           </div>
         </form>
       </div>
