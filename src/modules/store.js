@@ -1,16 +1,24 @@
-const storeEvent = (formData) => {
-  const retrieveEvent = JSON.parse(localStorage.getItem("eventItems")) || [];
-  const checkDate = formData.date;
-  let checkFlag = false;
-  retrieveEvent.forEach((item) => {
-    if (item.date === checkDate) checkFlag = true; //checking if post with such date already axists
-  });
-  if (!checkFlag) {
-    const updatedEvent = [...retrieveEvent, formData];
-    localStorage.setItem("eventItems", JSON.stringify(updatedEvent));
-    return "";
-  } else {
-    return `Post with such date ${checkDate} already exists`; //warning popup message
+const storeEvent = async (formData) => {
+  try {
+    // Send a POST request to your API
+    const response = await fetch("http://localhost:3001/api/events", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`, // Include token if needed
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Failed to create event");
+    }
+
+    return ""; // No error, event created successfully
+  } catch (error) {
+    return error.message; // Return error message if request fails
   }
 };
+
 export { storeEvent };

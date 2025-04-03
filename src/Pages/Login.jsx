@@ -26,6 +26,7 @@ export const Login = () => {
       if (!response.ok) throw new Error(data.message || "Login failed");
 
       login(data.apiKey);
+      window.location.reload(); // Refresh the page
     } catch (err) {
       setError(err.message);
     }
@@ -62,7 +63,7 @@ export const Login = () => {
           Login
         </button>
         <h1 className=" p-2 font-medium text-blue-600 underline cursor-pointer mt-4 text-center">
-          <Link to="/signup">Don't have an account?SignUp here</Link>
+          <Link to="/signup">Don't have an account? SignUp here</Link>
         </h1>
       </form>
     </div>

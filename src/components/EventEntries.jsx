@@ -9,7 +9,7 @@ const EventEntries = ({ eventEntries, deleteCard }) => {
     setSelectedEntry(entry);
   };
 
-  const closeModal = () => {
+  const closeNewEventForm = () => {
     setSelectedEntry("");
   };
 
@@ -56,8 +56,10 @@ const EventEntries = ({ eventEntries, deleteCard }) => {
 
       {selectedEntry && (
         <div
-          className="fixed inset-0 bg-gradient-to-b from-purple-400 to-purple-200 p-4 bg-opacity-50 flex justify-center items-center" /* Modal*/
-          onClick={closeModal} /*Close modal when clicking on the purple area*/
+          className="fixed inset-0 bg-gradient-to-b from-purple-400 to-purple-200 p-4 bg-opacity-50 flex justify-center items-center" /* NewEventForm*/
+          onClick={
+            closeNewEventForm
+          } /*Close modal when clicking on the purple area*/
         >
           <div
             className="bg-white p-6 rounded shadow-lg w-[70%] relative"
@@ -81,7 +83,7 @@ const EventEntries = ({ eventEntries, deleteCard }) => {
             <div className="flex justify-around">
               <button
                 className="bg-purple-500 text-white px-4 py-2 rounded mt-6 hover:bg-purple-600 transition duration-300" /* Save Button at the Bottom */
-                onClick={closeModal}
+                onClick={closeNewEventForm}
               >
                 Save
               </button>
