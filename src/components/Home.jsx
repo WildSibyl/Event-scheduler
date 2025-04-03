@@ -2,6 +2,7 @@ import EventEntries from "../components/EventEntries";
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router";
 import { AuthContext } from "../context/AuthContext"; // Import the AuthContext
+import { getEvents } from "../utils/getEvents.js";
 
 export const Home = () => {
   const { user, login, logout } = useContext(AuthContext); // Get user and logout from context
@@ -12,22 +13,12 @@ export const Home = () => {
 
   // Function to fetch event entries from API
   const fetchEventEntries = async () => {
-    try {
-      const response = await fetch("http://localhost:3001/api/events", {
-        headers: {
-          Authorization: `Bearer ${user}`, // Send token for authentication
-        },
-      });
+    // Sort entries by date (assuming date is in "YYYY-MM-DD" format)
+    //storedEntries.sort((a, b) => new Date(b.date) - new Date(a.date));
+    const events = await getEvents();
+    console.log("events in home fetching", events);
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch events");
-      }
-
-      const data = await response.json();
-      setEventEntries(data);
-    } catch (error) {
-      console.error(error.message);
-    }
+    setEventEntries(events);
   };
 
   const deleteCard = async (id) => {
@@ -53,10 +44,8 @@ export const Home = () => {
   };
 
   useEffect(() => {
-    if (user) {
-      fetchEventEntries(); // Fetch events only if logged in
-    }
-  }, [user]); // Re-fetch events when user changes
+    fetchEventEntries();
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-purple-400 to-purple-200">
