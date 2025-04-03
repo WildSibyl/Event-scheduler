@@ -6,6 +6,7 @@ import { Login } from "./Pages/Login";
 import Signup from "./Pages/Signup";
 import ProtectedRoute from "./components/ProtectedRoute";
 import NewEventForm from "./components/NewEventForm";
+import EventCard from "./components/EventCard";
 
 /* import { useState } from "react";*/
 function App() {
@@ -16,6 +17,7 @@ function App() {
       <AuthProvider>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/:eventId" element={<EventCard />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />

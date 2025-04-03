@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import deleteIcon from "../assets/trash.png";
+import { Link } from "react-router";
 
 const EventEntries = ({ eventEntries, deleteCard }) => {
   console.log(eventEntries);
@@ -15,28 +16,30 @@ const EventEntries = ({ eventEntries, deleteCard }) => {
 
   return (
     <>
-      <div className="mt-8 text-left space-y-4 mx-auto">
-        {eventEntries.length > 0 ? (
-          eventEntries.map((entry, index) => (
+      <div className="mt-8 mx-auto max-w-6xl">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          {eventEntries.map((entry) => (
             <div
-              key={index}
-              className="bg-white p-4 rounded-lg shadow-lg flex items-center cursor-pointer transition duration-300 ease-in-out hover:shadow-xl hover:bg-purple-200 lg:flex-row sm:flex-col ml-[10%] mr-[9%]"
-              onClick={() => handleCardClick(entry)} /* Open modal on click*/
+              key={entry.id}
+              className="bg-gradient-to-b from-blue-100 to-purple-200 p-4 rounded-lg shadow-md flex flex-col items-center justify-between h-50 w-50 cursor-pointer transition-all duration-300 ease-in-out hover:shadow-xl hover:from-purple-200 hover:to-blue-300"
+              onClick={() => handleCardClick(entry)}
             >
-              <img
-                src={entry.imageUrl}
-                alt="Entry"
-                className="max-w-72 h-40 rounded-lg md:mr-10 sm:mr-0"
-              />
-              <div className="flex justify-between w-full">
-                <div className="flex flex-col">
-                  <h2 className="font-bold text-3xl">{entry.title}</h2>
-                  <p className="font-semibold text-2xl mt-2">{entry.date}</p>
-                </div>
+              <div className="text-center space-y-2">
+                <h2 className="font-bold text-lg text-gray-800 line-clamp-2">
+                  {entry.title}
+                </h2>
+                <p className="font-semibold text-sm text-gray-600">
+                  {entry.date.split("T")[0]}
+                </p>
+                <p className="text-xs text-gray-700 line-clamp-3">
+                  {entry.description}
+                </p>
+              </div>
+              {/* <div>
                 <button
                   onClick={(e) => {
-                    e.stopPropagation(); /* Prevent modal from opening*/
-                    deleteCard(entry.date);
+                    e.stopPropagation();
+                    deleteCard(entry.id);
                   }}
                   className="bg-gray-100 rounded-lg p-2 mt-4 hover:bg-red-300 transition duration-300 ease-in-out cursor-pointer"
                 >
@@ -46,51 +49,19 @@ const EventEntries = ({ eventEntries, deleteCard }) => {
                     className="w-[30px] self-start"
                   />
                 </button>
+              </div> */}
+              <div>
+                <Link
+                  to={`/${entry.id}`}
+                  className="text-blue-700 hover:text-blue-100 font-medium"
+                >
+                  More details →
+                </Link>
               </div>
             </div>
-          ))
-        ) : (
-          <p className="text-center text-gray-600">No event entries yet.</p>
-        )}
-      </div>
-
-      {selectedEntry && (
-        <div
-          className="fixed inset-0 bg-gradient-to-b from-purple-400 to-purple-200 p-4 bg-opacity-50 flex justify-center items-center" /* NewEventForm*/
-          onClick={
-            closeNewEventForm
-          } /*Close modal when clicking on the purple area*/
-        >
-          <div
-            className="bg-white p-6 rounded shadow-lg w-[70%] relative"
-            onClick={
-              (e) =>
-                e.stopPropagation() /*Prevent closing when clicking inside the modal*/
-            }
-          >
-            <p className="text-sm text-gray-600 text-center mb-4">
-              {selectedEntry.date}
-            </p>
-            <img
-              src={selectedEntry.imageUrl}
-              alt={selectedEntry.title}
-              className="w-full h-48 object-cover rounded"
-            />
-            <h2 className="text-xl font-bold mt-4 text-center">
-              {selectedEntry.title}
-            </h2>
-            <p className="mt-4 text-justify">{selectedEntry.content}</p>
-            <div className="flex justify-around">
-              <button
-                className="bg-purple-500 text-white px-4 py-2 rounded mt-6 hover:bg-purple-600 transition duration-300" /* Save Button at the Bottom */
-                onClick={closeNewEventForm}
-              >
-                Save
-              </button>
-            </div>
-          </div>
+          ))}
         </div>
-      )}
+      </div>
     </>
   );
 };
