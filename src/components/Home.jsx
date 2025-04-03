@@ -3,10 +3,14 @@ import Modal from "../components/Modal";
 import EventEntries from "../components/EventEntries";
 import React, { useState, useEffect } from "react";
 import pencilIcon from "../assets/pencil.png"; // Import the pencil icon
+import { useNavigate } from "react-router";
 
 export const Home = () => {
   const [addOpen, setAddOpen] = useState(false);
   const [eventEntries, setEventEntries] = useState([]);
+  // use navigate for login
+
+  const navigate = useNavigate();
 
   // Function to fetch event entries from localStorage
   const fetchEventEntries = () => {
@@ -35,13 +39,25 @@ export const Home = () => {
         <span>My Event App</span>
 
         <button
-          className="bg-white text-gray-800 rounded-2xl shadow-md px-8 py-2 flex items-center gap-4 cursor-pointer hover:bg-purple-200 hover:shadow-lg transition duration-300 ease-in-out md:mt-0 sm:mt-4"
+          className="bg-white text-gray-800 rounded-2xl shadow-md px-8 py-2 flex items-center cursor-pointer hover:bg-purple-200 hover:shadow-lg transition duration-300 ease-in-out md:mt-0 sm:mt-4"
           onClick={() => setAddOpen((prev) => !prev)}
         >
           <img src={pencilIcon} alt="Pencil Icon" className="w-15 h-15" />
           <span className="font-bold text-xxl"> Add New</span>
         </button>
         <Modal add={addOpen} changeAdd={setAddOpen} />
+        <button
+          onClick={() => navigate("/login")}
+          className="bg-white text-gray-800 rounded-2xl shadow-md px-8 py-2 flex items-center cursor-pointer hover:bg-purple-200 hover:shadow-lg transition duration-300 ease-in-out md:mt-0 sm:mt-4"
+        >
+          Login
+        </button>
+        <button
+          onClick={() => navigate("/signup")}
+          className="bg-white text-gray-800 rounded-2xl shadow-md px-8 py-2 flex items-center cursor-pointer hover:bg-purple-200 hover:shadow-lg transition duration-300 ease-in-out md:mt-0 sm:mt-4"
+        >
+          Signup
+        </button>
       </header>
 
       <main className="flex-grow ">
