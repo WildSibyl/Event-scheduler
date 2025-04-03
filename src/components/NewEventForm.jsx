@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { storeEvent } from "../modules/store";
-const Modal = ({ add, changeAdd }) => {
+import { useNavigate } from "react-router";
+
+const NewEventForm = () => {
   const [warning, setWarning] = useState(""); //used to popup warning to avoid the same date
   const [formData, setFormData] = useState({
     title: "",
@@ -26,14 +28,14 @@ const Modal = ({ add, changeAdd }) => {
     }
     // reset fields to empty after successfully storing
     setFormData({ title: "", date: "", imageUrl: "", content: "" });
-    changeAdd(false); // close modal after submit
+    navigate("/"); // Redirect to home page after successful event creation
     checkWarning = "";
     setWarning(checkWarning);
     // console.log(`warning ${warning}`);
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 flex items-center justify-center z-50 p-4 backdrop-blur-md">
       <div className="bg-gradient-to-r from-[#ffffff] to-[#f1c0ff] shadow-purple-800/80 shadow-2xl p-4 sm:p-6 rounded-lg w-full max-w-lg sm:max-w-xl md:max-w-2xl">
         {/* Komunikat ostrzegawczy */}
         {warning && (
@@ -45,7 +47,7 @@ const Modal = ({ add, changeAdd }) => {
 
         {/* Nagłówek */}
         <h1 className="text-xl sm:text-2xl font-bold text-yellow-800 mb-4 text-center">
-          CREATE NEW EVENT
+          Your Event
         </h1>
 
         {/* Formularz */}
@@ -116,16 +118,8 @@ const Modal = ({ add, changeAdd }) => {
             </button>
           </div>
         </form>
-        <button
-          onClick={() => {
-            changeAdd((prev) => !prev);
-          }}
-          className="bg-purple-600 shadow-md hover:bg-purple-300 hover:shadow-lg transition duration-300 text-white font-medium my-4 py-1 px-3 sm:px-3 rounded text-sm sm:text-base"
-        >
-          Close
-        </button>
       </div>
     </div>
   );
 };
-export default Modal;
+export default NewEventForm;
