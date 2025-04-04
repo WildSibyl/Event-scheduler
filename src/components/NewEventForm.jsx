@@ -18,8 +18,8 @@ const NewEventForm = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault(); // prevents emptying fields
-    let checkWarning;
-    // let checkWarning = storeEvent(eventFormData); // call store function
+
+    let checkWarning = storeEvent(eventFormData); // call store function
     if (checkWarning) {
       setWarning(checkWarning);
       return;
