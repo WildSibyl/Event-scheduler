@@ -12,15 +12,15 @@ const EventEntries = ({ eventEntries, deleteCard, setBin }) => {
   return (
     <>
       <div className="mt-8 mx-auto max-w-6xl">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
           {eventEntries.map((entry) => (
             <div
               key={entry.id}
-              className="relative bg-gradient-to-b from-blue-100 to-blue-200 p-4 rounded-lg shadow-md flex flex-col items-center justify-between h-50 w-50 cursor-pointer transition-all duration-300 ease-in-out hover:shadow-xl hover:from-blue-200 hover:to-blue-300"
+              className="relative bg-gradient-to-b from-blue-100 to-blue-200 p-4 rounded-lg shadow-md flex flex-col items-center justify-between h-50 w-50 mx-auto cursor-pointer transition-all duration-300 ease-in-out hover:shadow-xl hover:from-blue-200 hover:to-blue-300"
               onClick={() => handleCardClick(entry)}
             >
               <div className="text-center space-y-2">
-                <h2 className="font-bold text-lg text-gray-800 line-clamp-2">
+                <h2 className="font-bold text-lg text-gray-800 line-clamp-2 w-[75%] mx-auto">
                   {entry.title}
                 </h2>
                 <p className="font-semibold text-sm text-gray-600">
