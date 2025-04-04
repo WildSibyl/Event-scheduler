@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router";
 const NewEventForm = () => {
   const navigate = useNavigate();
   const [warning, setWarning] = useState(""); //used to popup warning to avoid the same date
+  const [dateError, setDateError] = useState(""); // State for error message
   const [eventFormData, setEventFormData] = useState({
     title: "",
     date: "",
@@ -16,6 +17,23 @@ const NewEventForm = () => {
     const { name, value } = e.target;
     setEventFormData((prev) => ({ ...prev, [name]: value }));
   };
+
+  const handleDateChange = (e) => {
+    const { name, value } = e.target;
+
+    // Get today's date in YYYY-MM-DD format
+    const today = new Date().toISOString().split("T")[0];
+
+    // Check if selected date is in the past
+    if (name === "date" && value < today) {
+      setDateError("You cannot select a past date.");
+    } else {
+      setDateError(""); // Clear error if valid
+    }
+
+    setEventFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault(); // prevents emptying fields
 
@@ -74,7 +92,7 @@ const NewEventForm = () => {
               className="flex-1 p-2 text-black  border border-gray-300 rounded bg-gray-200 text-sm sm:text-base"
               required
               name="date"
-              onChange={handleChange}
+              onChange={handleDateChange}
               value={eventFormData.date}
             />
           </div>
@@ -138,6 +156,11 @@ const NewEventForm = () => {
             />
           </div>
 
+          {/* Warning message */}
+          {dateError && (
+            <p className="text-red-500 text-sm mt-1">{dateError}</p>
+          )}
+
           <div className="flex flex-col justify-center">
             <button
               type="submit"
@@ -153,7 +176,12 @@ const NewEventForm = () => {
                   navigate("/");
                 }
               }}
-              className="bg-blue-600 shadow-md hover:bg-blue-300 hover:shadow-lg transition duration-300 text-white font-medium py-2 mx-auto sm:px-6 text-sm sm:text-base rounded-full"
+              className={`bg-blue-600 shadow-md hover:bg-blue-300 hover:shadow-lg transition duration-300 text-white font-medium py-2 mx-auto sm:px-6 text-sm sm:text-base rounded-full ${
+                dateError
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-blue-500 hover:bg-blue-600"
+              }`}
+              disabled={!!dateError}
             >
               Submit
             </button>
