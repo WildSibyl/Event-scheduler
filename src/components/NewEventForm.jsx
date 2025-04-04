@@ -33,18 +33,18 @@ const NewEventForm = () => {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 p-4 backdrop-blur-md">
-      <div className="bg-gradient-to-r from-[#ffffff] to-[#f1c0ff] shadow-purple-800/80 shadow-2xl p-4 sm:p-6 rounded-lg w-full max-w-lg sm:max-w-xl md:max-w-2xl">
+    <div className="fixed inset-0 flex items-center justify-center z-50 p-4 bg-blue-200">
+      <div className="bg-gradient-to-r from-blue-200 to-blue-500 shadow-blue-800/80 shadow-2xl p-4 sm:p-6 rounded-lg w-full max-w-lg sm:max-w-xl md:max-w-2xl">
         {/* Komunikat ostrzegawczy */}
         {warning && (
-          <div className="bg-gradient-to-r from-[#f1c0ff] to-[#ffffff] text-purple-900 p-3 sm:p-4 mb-4 rounded">
+          <div className="bg-gradient-to-r from-red-500 to-red-300 text-red-900 p-3 sm:p-4 mb-4 rounded">
             <p className="font-semibold text-sm sm:text-base">Warning:</p>
             <p className="text-sm sm:text-base">{warning}</p>
           </div>
         )}
 
         {/* Nagłówek */}
-        <h1 className="text-xl sm:text-2xl font-bold text-yellow-800 mb-4 text-center">
+        <h1 className="text-xl sm:text-2xl font-bold mb-4 text-center">
           Your Event
         </h1>
 
@@ -94,6 +94,36 @@ const NewEventForm = () => {
             />
           </div>
 
+          <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-2 sm:space-y-0">
+            <label className="w-full sm:w-24 text-base sm:text-lg font-medium text-black">
+              Latitude
+            </label>
+            <input
+              type="text"
+              className="flex-1 p-2 text-black border border-gray-300 rounded bg-gray-200 text-sm sm:text-base"
+              placeholder="Enter the event's latitude"
+              required
+              name="latitude"
+              onChange={handleChange}
+              value={eventFormData.latitude}
+            />
+          </div>
+
+          <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 space-y-2 sm:space-y-0">
+            <label className="w-full sm:w-24 text-base sm:text-lg font-medium text-black">
+              Longitude
+            </label>
+            <input
+              type="text"
+              className="flex-1 p-2 text-black border border-gray-300 rounded bg-gray-200 text-sm sm:text-base"
+              placeholder="Enter the event's longitude"
+              required
+              name="longitude"
+              onChange={handleChange}
+              value={eventFormData.longitude}
+            />
+          </div>
+
           <div className="flex flex-col sm:flex-row sm:items-start sm:space-x-4 space-y-2 sm:space-y-0">
             <label className="w-full sm:w-24 text-base sm:text-lg font-medium text-black">
               Content
@@ -116,19 +146,21 @@ const NewEventForm = () => {
                   eventFormData.title &&
                   eventFormData.date &&
                   eventFormData.location &&
+                  eventFormData.longitude &&
+                  eventFormData.latitude &&
                   eventFormData.description
                 ) {
                   navigate("/");
                 }
               }}
-              className="bg-purple-600 shadow-md hover:bg-purple-300 hover:shadow-lg transition duration-300 text-white font-medium py-2 mx-auto sm:px-6 rounded text-sm sm:text-base"
+              className="bg-blue-600 shadow-md hover:bg-blue-300 hover:shadow-lg transition duration-300 text-white font-medium py-2 mx-auto sm:px-6 text-sm sm:text-base rounded-full"
             >
               Submit
             </button>
             <div>
               <Link
                 to="/"
-                className="text-blue-400 hover:text-blue-100 mb-4 inline-block"
+                className="text-blue-700 hover:text-blue-100 mb-4 inline-block font-semibold"
               >
                 ← Back to home page
               </Link>

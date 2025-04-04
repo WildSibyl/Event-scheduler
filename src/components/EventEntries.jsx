@@ -3,6 +3,8 @@ import deleteIcon from "../assets/trash.png";
 import { Link } from "react-router";
 
 const EventEntries = ({ eventEntries, deleteCard, setBin }) => {
+  const [selectedEntry, setSelectedEntry] = useState(null);
+
   const handleCardClick = (entry) => {
     setSelectedEntry(entry);
   };
@@ -14,7 +16,7 @@ const EventEntries = ({ eventEntries, deleteCard, setBin }) => {
           {eventEntries.map((entry) => (
             <div
               key={entry.id}
-              className="relative bg-gradient-to-b from-blue-100 to-purple-200 p-4 rounded-lg shadow-md flex flex-col items-center justify-between h-50 w-50 cursor-pointer transition-all duration-300 ease-in-out hover:shadow-xl hover:from-purple-200 hover:to-blue-300"
+              className="relative bg-gradient-to-b from-blue-100 to-blue-200 p-4 rounded-lg shadow-md flex flex-col items-center justify-between h-50 w-50 cursor-pointer transition-all duration-300 ease-in-out hover:shadow-xl hover:from-blue-200 hover:to-blue-300"
               onClick={() => handleCardClick(entry)}
             >
               <div className="text-center space-y-2">
@@ -35,7 +37,7 @@ const EventEntries = ({ eventEntries, deleteCard, setBin }) => {
                     deleteCard(entry.id);
                     setBin((prev) => !prev);
                   }}
-                  className="bg-gray-100 rounded-lg p-2 mt-4 hover:bg-red-300 transition duration-300 ease-in-out cursor-pointer absolute top-0 right-2"
+                  className="bg-gray-100 rounded-full p-2 mt-2 hover:bg-red-300 transition duration-300 ease-in-out cursor-pointer absolute top-0 right-2"
                 >
                   <img
                     src={deleteIcon}
@@ -47,7 +49,7 @@ const EventEntries = ({ eventEntries, deleteCard, setBin }) => {
               <div>
                 <Link
                   to={`/${entry.id}`}
-                  className="text-blue-700 hover:text-blue-100 font-medium"
+                  className="text-blue-700 hover:text-blue-100 font-medium "
                 >
                   More details →
                 </Link>
