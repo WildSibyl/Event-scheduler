@@ -8,6 +8,7 @@ export const Home = () => {
   const { user, login, logout } = useContext(AuthContext); // Get user and logout from context
   const [eventEntries, setEventEntries] = useState([]);
   // use navigate for login
+  const [bin, setBin] = useState(false);
 
   const navigate = useNavigate();
 
@@ -45,12 +46,12 @@ export const Home = () => {
 
   useEffect(() => {
     fetchEventEntries();
-  }, []);
+  }, [bin]);
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-purple-400 to-purple-200">
       {/* Header */}
-      <header className="text-white bg-purple-400 py-4 text-3xl font-bold shadow-md flex justify-around items-center sticky top-0 md:flex-row sm:flex-col">
+      <header className="text-white bg-purple-400 py-4 text-3xl font-bold shadow-md flex justify-around items-center md:flex-row sm:flex-col">
         <span>My Event App</span>
         {user ? (
           <>
@@ -87,7 +88,11 @@ export const Home = () => {
 
       <main className="flex-grow ">
         <div className="mt-4 h-[900px] overflow-y-scroll rounded-lg shadow-inner p-4 scrollbar scrollbar-thumb-purple-500 scrollbar-track-purple-200">
-          <EventEntries eventEntries={eventEntries} deleteCard={deleteCard} />
+          <EventEntries
+            eventEntries={eventEntries}
+            deleteCard={deleteCard}
+            setBin={setBin}
+          />
         </div>
       </main>
 

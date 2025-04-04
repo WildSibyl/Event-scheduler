@@ -2,16 +2,9 @@ import React, { useState } from "react";
 import deleteIcon from "../assets/trash.png";
 import { Link } from "react-router";
 
-const EventEntries = ({ eventEntries, deleteCard }) => {
-  console.log(eventEntries);
-  const [selectedEntry, setSelectedEntry] = useState("");
-
+const EventEntries = ({ eventEntries, deleteCard, setBin }) => {
   const handleCardClick = (entry) => {
     setSelectedEntry(entry);
-  };
-
-  const closeNewEventForm = () => {
-    setSelectedEntry("");
   };
 
   return (
@@ -40,6 +33,7 @@ const EventEntries = ({ eventEntries, deleteCard }) => {
                   onClick={(e) => {
                     e.stopPropagation();
                     deleteCard(entry.id);
+                    setBin((prev) => !prev);
                   }}
                   className="bg-gray-100 rounded-lg p-2 mt-4 hover:bg-red-300 transition duration-300 ease-in-out cursor-pointer absolute top-0 right-2"
                 >

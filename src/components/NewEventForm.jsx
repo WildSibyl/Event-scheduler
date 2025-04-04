@@ -18,8 +18,8 @@ const NewEventForm = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault(); // prevents emptying fields
-
-    let checkWarning = storeEvent(eventFormData); // call store function
+    let checkWarning;
+    // let checkWarning = storeEvent(eventFormData); // call store function
     if (checkWarning) {
       setWarning(checkWarning);
       return;
@@ -111,6 +111,16 @@ const NewEventForm = () => {
           <div className="flex flex-col justify-center">
             <button
               type="submit"
+              onClick={() => {
+                if (
+                  eventFormData.title &&
+                  eventFormData.date &&
+                  eventFormData.location &&
+                  eventFormData.description
+                ) {
+                  navigate("/");
+                }
+              }}
               className="bg-purple-600 shadow-md hover:bg-purple-300 hover:shadow-lg transition duration-300 text-white font-medium py-2 mx-auto sm:px-6 rounded text-sm sm:text-base"
             >
               Submit
