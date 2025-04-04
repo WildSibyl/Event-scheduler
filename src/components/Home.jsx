@@ -49,45 +49,49 @@ export const Home = () => {
   }, [bin]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-purple-400 to-purple-200">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-400 to-blue-200">
       {/* Header */}
-      <header className="text-white bg-purple-400 py-4 text-3xl font-bold shadow-md flex justify-around items-center md:flex-row sm:flex-col">
+      <header className="text-white bg-blue-400 py-4 text-2xl font-bold shadow-md flex justify-between items-center px-4 md:flex-row sm:flex-col">
         <span>My Event App</span>
         {user ? (
           <>
-            <button
-              className="bg-white text-gray-800 rounded-2xl shadow-md px-8 py-2 flex items-center cursor-pointer hover:bg-purple-200 hover:shadow-lg transition duration-300 ease-in-out md:mt-0 sm:mt-4"
-              onClick={() => navigate("/new-event")}
-            >
-              <span className="font-bold text-xxl">Create Event</span>
-            </button>
-            <button
-              className="bg-white text-gray-800 rounded-2xl shadow-md px-8 py-2 cursor-pointer hover:bg-red-200 transition duration-300"
-              onClick={logout}
-            >
-              Logout
-            </button>
+            <div className="flex space-x-3">
+              <button
+                className="bg-white text-gray-800 rounded-full shadow-md px-8 py-2 flex items-center cursor-pointer hover:bg-blue-200 hover:shadow-lg transition duration-300 ease-in-out md:mt-0 sm:mt-4"
+                onClick={() => navigate("/new-event")}
+              >
+                <span className="font-bold text-xxl">Create Event</span>
+              </button>
+              <button
+                className="bg-white text-gray-800 rounded-full shadow-md px-8 py-2 cursor-pointer hover:bg-red-200 transition duration-300"
+                onClick={logout}
+              >
+                Logout
+              </button>
+            </div>
           </>
         ) : (
           <>
-            <button
-              onClick={() => navigate("/login")}
-              className="bg-white text-gray-800 rounded-2xl shadow-md px-8 py-2 flex items-center cursor-pointer hover:bg-purple-200 hover:shadow-lg transition duration-300 ease-in-out md:mt-0 sm:mt-4"
-            >
-              Login
-            </button>
-            <button
-              onClick={() => navigate("/signup")}
-              className="bg-white text-gray-800 rounded-2xl shadow-md px-8 py-2 flex items-center cursor-pointer hover:bg-purple-200 hover:shadow-lg transition duration-300 ease-in-out md:mt-0 sm:mt-4"
-            >
-              Signup
-            </button>
+            <div className="flex space-x-3">
+              <button
+                onClick={() => navigate("/login")}
+                className="bg-white text-gray-800 rounded-full shadow-md px-8 py-2 flex items-center cursor-pointer hover:bg-blue-200 hover:shadow-lg transition duration-300 ease-in-out md:mt-0 sm:mt-4"
+              >
+                Login
+              </button>
+              <button
+                onClick={() => navigate("/signup")}
+                className="bg-white text-gray-800 rounded-full shadow-md px-8 py-2 flex items-center cursor-pointer hover:bg-blue-200 hover:shadow-lg transition duration-300 ease-in-out md:mt-0 sm:mt-4"
+              >
+                Signup
+              </button>
+            </div>
           </>
         )}
       </header>
 
-      <main className="flex-grow ">
-        <div className="mt-4 h-[900px] overflow-y-scroll rounded-lg shadow-inner p-4 scrollbar scrollbar-thumb-purple-500 scrollbar-track-purple-200">
+      <main className="flex-grow">
+        <div className="mt-4 h-[700px] overflow-y-scroll rounded-lg shadow-inner p-4 scrollbar scrollbar-thumb-blue-500 scrollbar-track-blue-200">
           <EventEntries
             eventEntries={eventEntries}
             deleteCard={deleteCard}
